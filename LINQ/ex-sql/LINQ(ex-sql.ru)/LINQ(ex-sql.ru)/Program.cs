@@ -23,16 +23,19 @@ namespace ex_sql
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            ex_1();
-            ex_2();
-            ex_3();
-        }
-
-        static void ex_1()
-        {
             Computer db = new Computer(@"Data Source=.\SQLEXPRESS;Initial Catalog=computer;Integrated Security=SSPI;TrustServerCertificate=True");
+
+            ex_1(db);
+            ex_2(db);
+            ex_3(db);
+        }
+        
+        static void ex_1(Computer db)
+        {
+
             var custs =
             from c in db.PCs
             where c.Price < Convert.ToDecimal(500.0000)
@@ -50,9 +53,9 @@ namespace ex_sql
         }
 
 
-        static void ex_2()
+        static void ex_2(Computer db)
         {
-            Computer db = new Computer(@"Data Source=.\SQLEXPRESS;Initial Catalog=computer;Integrated Security=SSPI;TrustServerCertificate=True");
+
             var custs =
             (from c in db.Products
              where 
@@ -71,9 +74,9 @@ namespace ex_sql
             }
         }
 
-        static void ex_3()
+        static void ex_3(Computer db)
         {
-            Computer db = new Computer(@"Data Source=.\SQLEXPRESS;Initial Catalog=computer;Integrated Security=SSPI;TrustServerCertificate=True");
+
             var custs =
             (from c in db.Products
              where
@@ -107,5 +110,11 @@ namespace ex_sql
                 Console.WriteLine(value.ToString());
             }
         }
+
+        static void ex_4()
+        { 
+        
+        }
+
     }
 }
