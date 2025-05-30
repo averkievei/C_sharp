@@ -31,6 +31,7 @@ namespace ex_sql
             ex_1(db);
             ex_2(db);
             ex_3(db);
+            ex_6(db);
         }
         
         static void ex_1(Computer db)
@@ -111,9 +112,26 @@ namespace ex_sql
             }
         }
 
-        static void ex_4()
-        { 
-        
+        static void ex_6(Computer db)
+        {
+            var custs =
+            (from l in db.Laptops
+             join p in db.Products on l.Model equals p.Model
+             
+             where
+               l.Hd >= 10
+
+             select new { p.Maker, l.Speed });
+           
+            var line = string.Join("", Enumerable.Repeat('-', 25));           
+            Console.WriteLine("{0}", line);
+
+            foreach (var c in custs)
+            {
+                Console.WriteLine("{0}", c);
+                Console.WriteLine("{0} ", line);
+            }
+
         }
 
     }
