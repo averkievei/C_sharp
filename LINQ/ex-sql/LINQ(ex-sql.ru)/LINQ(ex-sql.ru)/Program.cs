@@ -117,12 +117,16 @@ namespace ex_sql
             var custs =
             (from l in db.Laptops
              join p in db.Products on l.Model equals p.Model
-             
+
              where
                l.Hd >= 10
 
-             select new { p.Maker, l.Speed });
-           
+             group l by new { p.Maker, l.Speed } into groups
+             orderby groups.Key.Maker, groups.Key.Speed ascending
+             select new { groups.Key.Maker, groups.Key.Speed }
+
+             );
+
             var line = string.Join("", Enumerable.Repeat('-', 25));           
             Console.WriteLine("{0}", line);
 
