@@ -17,6 +17,9 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Reflection;
+using Castle.Components.DictionaryAdapter.Xml;
+using System.Net.Sockets;
+using System.Drawing;
 
 
 namespace ex_sql
@@ -36,7 +39,7 @@ namespace ex_sql
         
         static void ex_1(Computer db)
         {
-
+            Console.WriteLine("{0}", "Задача №1");
             var custs =
             from c in db.PCs
             where c.Price < Convert.ToDecimal(500.0000)
@@ -56,7 +59,7 @@ namespace ex_sql
 
         static void ex_2(Computer db)
         {
-
+            Console.WriteLine("{0}", "Задача №2");
             var custs =
             (from c in db.Products
              where 
@@ -77,17 +80,19 @@ namespace ex_sql
 
         static void ex_3(Computer db)
         {
-
+            Console.WriteLine("{0}", "Задача №3");
             var custs =
             (from c in db.Products
              where
                 c.Type == "printer"
 
-             select (c));
+             select new  { c });
 
-             //var properties = custs.GetType().GetProperties();
 
-             //var result = properties.Select(p => p.GetValue(custs));
+
+            //var properties = custs.GetType().GetProperties();
+
+            //var result = properties.Select(p => p.GetValue(custs));
 
             var line = string.Join("", Enumerable.Repeat('-', 25));
             Console.WriteLine("{0}", line);
@@ -96,11 +101,6 @@ namespace ex_sql
             //IEnumerable<Product> custs = (from c in db.Products
             //                               select c).AsEnumerable();
             //ObservableCollection<Product> obs = new ObservableCollection<Product>(custs);
-
-
-
-
-
 
             var properties = custs.GetType().GetProperties();
 
@@ -114,6 +114,8 @@ namespace ex_sql
 
         static void ex_6(Computer db)
         {
+            Console.WriteLine("{0}", "Задача №6");
+            Console.WriteLine("{0}", "Query Syntax");
             var custs =
             (from l in db.Laptops
              join p in db.Products on l.Model equals p.Model
@@ -127,12 +129,29 @@ namespace ex_sql
 
              );
 
-            var line = string.Join("", Enumerable.Repeat('-', 25));           
+            var line = string.Join("", Enumerable.Repeat('-', 25));
             Console.WriteLine("{0}", line);
 
             foreach (var c in custs)
             {
                 Console.WriteLine("{0}", c);
+                Console.WriteLine("{0} ", line);
+            }
+            Console.WriteLine("{0}", "Method Syntax");
+            var results = db.Laptops
+                            .Join(db.Products,
+                                    l => l.Model,
+                                    p => p.Model,
+                                    (l, p) => new { l, p })
+                            .Where  (x => x.l.Hd >= 10 )
+                            .GroupBy(x => new { x.p.Maker, x.l.Speed })
+                            .OrderBy(x => (x.Key.Maker))
+                            .OrderBy(x => (x.Key.Speed))
+                            ;
+
+            foreach (var r in results)
+            {
+                Console.WriteLine($"{r.Key.Maker} | {r.Key.Speed}");
                 Console.WriteLine("{0} ", line);
             }
 
