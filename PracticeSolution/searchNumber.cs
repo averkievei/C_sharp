@@ -24,7 +24,7 @@ namespace PracticeSolution
                 while (game)
                 {
                     var userNumber = Console.ReadLine();
-
+                    //проверка введенных данных
                     if (!int.TryParse(userNumber, out int number))
                     {
                         Console.WriteLine("Введите именно число");

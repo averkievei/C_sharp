@@ -27,7 +27,7 @@ namespace PracticeSolution
             }
 
             Console.Clear();
-            Console.WriteLine("Результат сложения двух чисел: " + a1 + " + " + a2 + " = " + (Int32.Parse(a1) + Int32.Parse(a2)));
+            Console.WriteLine("Результат сложения двух чисел: " + a1 + " + " + a2 + " = " + (Int32.Parse(a1) + Int32.Parse(a2)));//конвертация string в int32
         }
     }
 }
