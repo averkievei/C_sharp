@@ -1,16 +1,18 @@
 ﻿using PracticeSolution;
+using PracticeSolution.OOP;
+using System.Xml.Linq;
 class Program
 {
     static void Main()
     {
         Console.WriteLine("Выберите задачу:");
-        Console.WriteLine("ЭТАП 1.Основы синтаксиса и простые задачи");        
+        Console.WriteLine("ЭТАП 1.Основы синтаксиса и простые задачи");
         Console.WriteLine(" 1.1 - Сложение двух чисел");
         Console.WriteLine(" 1.2 - Угадай число");
         Console.WriteLine(" 1.3 - Поиск максимального числа в массиве");
         Console.WriteLine(" 1.4 - Таблица умножения");
         Console.WriteLine(" 1.5 - Диапазон и статистика массива");
-
+        Console.WriteLine(" 2.1 - Задача про студентов (ООП)");
 
 
         var choice = Console.ReadLine();
@@ -32,11 +34,23 @@ class Program
             case "1.5":
                 statisticsLstNumbers.Run();
                 break;
-                
+            case "2.1":
+                programStudents.Run();
+                break;
+
             // ...
             default:
                 Console.WriteLine("Неверный выбор");
                 break;
+
+
+
+
         }
+
+
+
+
+
     }
 }
